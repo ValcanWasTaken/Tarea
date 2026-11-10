@@ -134,7 +134,9 @@
             "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_heap_algorithms.hpp",
             "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_int128.hpp",
             "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_minmax.hpp",
-            "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\string"
+            "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\iomanip",
+            "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\xlocmon",
+            "d:\\valcan\\projectsvs2022\\vsc\\vc\\tools\\msvc\\14.51.36231\\include\\xloctime"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

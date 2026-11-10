@@ -1,6 +1,3 @@
 ﻿  main.cpp
-D:\Valcan\PROJECTSVS2022\MAV2\Project1\Project1\main.cpp(10,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Valcan\PROJECTSVS2022\MAV2\Project1\Project1\main.cpp(24,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Valcan\PROJECTSVS2022\MAV2\Project1\Project1\main.cpp(41,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Valcan\PROJECTSVS2022\MAV2\Project1\Project1\main.cpp(58,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Valcan\PROJECTSVS2022\MAV2\Project1\Project1\main.cpp(52,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Project1.vcxproj -> D:\Valcan\PROJECTSVS2022\MAV2\Project1\x64\Debug\Project1.exe

@@ -1,96 +1,91 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <string>
+#include <iomanip>
 
 using namespace std;
 
-void bubbleSortBase(vector<int> arr, int& comp, int& swaps) {
-    comp = 0; swaps = 0;
-    int n = arr.size();
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n - 1; j++) {
-            comp++;
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-                swaps++;
-            }
-        }
-    }
+struct Objeto {
+    char nombre;
+    double valor;
+    double peso;
+    double relacion;
+};
+
+bool compararObjetos(const Objeto& a, const Objeto& b) {
+    return a.relacion > b.relacion;
 }
 
-void bubbleSortMejora1(vector<int> arr, int& comp, int& swaps) {
-    comp = 0; swaps = 0;
-    int n = arr.size();
-    for (int i = 0; i < n; i++) {
-        bool swapped = false;
-        for (int j = 0; j < n - 1; j++) {
-            comp++;
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-                swaps++;
-                swapped = true;
-            }
-        }
-        if (!swapped) break;
-    }
-}
+void mochilaFraccional(double capacidad, vector<Objeto>& objetos) {
+    sort(objetos.begin(), objetos.end(), compararObjetos);
 
-void bubbleSortMejora2(vector<int> arr, int& comp, int& swaps) {
-    comp = 0; swaps = 0;
-    int n = arr.size();
-    for (int i = 0; i < n; i++) {
-        bool swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            comp++;
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-                swaps++;
-                swapped = true;
-            }
-        }
-        if (!swapped) break;
-    }
-}
+    double valorTotal = 0.0;
+    double pesoActual = 0.0;
 
-void selectionSort(vector<int> arr, int& comp, int& swaps) {
-    comp = 0; swaps = 0;
-    int n = arr.size();
-    for (int i = 0; i < n - 1; i++) {
-        int min_idx = i;
-        for (int j = i + 1; j < n; j++) {
-            comp++;
-            if (arr[j] < arr[min_idx]) {
-                min_idx = j;
-            }
+    for (const auto& obj : objetos) {
+        if (pesoActual + obj.peso <= capacidad) {
+            pesoActual += obj.peso;
+            valorTotal += obj.valor;
+            cout << "Objeto " << obj.nombre << " completo (Peso: " << obj.peso << ", Valor: " << obj.valor << ")\n";
         }
-        if (min_idx != i) {
-            swap(arr[i], arr[min_idx]);
-            swaps++;
+        else {
+            double espacioRestante = capacidad - pesoActual;
+            double fraccion = espacioRestante / obj.peso;
+            pesoActual += espacioRestante;
+            valorTotal += obj.valor * fraccion;
+            cout << fixed << setprecision(2);
+            cout << fraccion * obj.peso << "/" << obj.peso << " Parte del objeto " << obj.nombre
+                << " (Valor obtenido: " << (obj.valor * fraccion) << ")\n";
+            break;
         }
     }
+    cout << "Valor total aproximado: " << valorTotal << "\n";
 }
 
-void probar(const string& nombre, const vector<int>& arr) {
-    cout << "--- Caso de prueba: " << nombre << " ---\n";
-    int comp, swaps;
+void coberturaAntenas(vector<int>& casas, int R) {
+    if (casas.empty()) return;
 
-    bubbleSortBase(arr, comp, swaps);
-    cout << "Bubble Sort Base:     Comparaciones = " << comp << ", Intercambios = " << swaps << "\n";
+    sort(casas.begin(), casas.end());
 
-    bubbleSortMejora1(arr, comp, swaps);
-    cout << "Bubble Sort Mejora 1: Comparaciones = " << comp << ", Intercambios = " << swaps << "\n";
+    vector<int> antenas;
+    int i = 0;
+    int n = casas.size();
 
-    bubbleSortMejora2(arr, comp, swaps);
-    cout << "Bubble Sort Mejora 2: Comparaciones = " << comp << ", Intercambios = " << swaps << "\n";
+    while (i < n) {
+        int izquierda = casas[i];
 
-    selectionSort(arr, comp, swaps);
-    cout << "Selection Sort:       Comparaciones = " << comp << ", Intercambios = " << swaps << "\n\n";
+        int j = i;
+        while (j < n && casas[j] <= izquierda + R) {
+            j++;
+        }
+        int posicionAntena = casas[j - 1] + R;
+        antenas.push_back(posicionAntena);
+
+        int siguienteCasaCubierta = posicionAntena + R;
+        while (i < n && casas[i] <= siguienteCasaCubierta) {
+            i++;
+        }
+    }
+
+    cout << "Antenas colocadas aproximadamente en:\n";
+    for (int antena : antenas) {
+        cout << antena << "\n";
+    }
+    cout << "Cantidad total: " << antenas.size() << "\n";
 }
 
 int main() {
-    probar("", { 5, 3, 8, 2 });
-    probar("", { 1, 2, 3, 4, 5 });
-    probar("", { 5, 4, 3, 2, 1 });
+    double capacidadMochila = 50;
+    vector<Objeto> objetosMochila = {
+        {'A', 60, 10, 60.0 / 10.0},
+        {'B', 100, 20, 100.0 / 20.0},
+        {'C', 120, 30, 120.0 / 30.0}
+    };
+    mochilaFraccional(capacidadMochila, objetosMochila);
+
+    vector<int> casas = { 1, 2, 7, 11, 20, 21, 30 };
+    int R = 5;
+    coberturaAntenas(casas, R);
+
     return 0;
 }
